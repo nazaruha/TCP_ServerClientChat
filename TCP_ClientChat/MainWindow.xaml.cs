@@ -43,7 +43,7 @@ namespace TCP_ClientChat
             int byte_count;
             while ((byte_count = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                Dispatcher.BeginInvoke(new Action(() =>
+                this.Dispatcher.Invoke(() =>
                 {
                     try
                     {
@@ -67,51 +67,18 @@ namespace TCP_ClientChat
                                     lbChat.Items.Add($"{msg.Name}:{msg.Text}");
                                     break;
                                 }
+                            default:
+                                break;
                         }
                         lbChat.Items.MoveCurrentToLast();
                         lbChat.ScrollIntoView(lbChat.Items.CurrentItem);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        //MessageBox.Show($"{ex.Message}");
+                        //return;
                     }
-                }));
-                //this.Dispatcher.Invoke(() =>
-                //{
-                //    try
-                //    {
-                //        TCPUserMessage msg = TCPUserMessage.Deserialize(buffer);
-                //        switch (msg.MessageType)
-                //        {
-                //            case TypeMessage.Login:
-                //                {
-                //                    if (msg.Id != userMsg.Id)
-                //                        lbChat.Items.Add($"{msg.Name}:{msg.Text}");
-                //                    break;
-                //                }
-                //            case TypeMessage.Logout:
-                //                {
-                //                    if (msg.Id != userMsg.Id)
-                //                        lbChat.Items.Add($"{msg.Name}:{msg.Text}");
-                //                    break;
-                //                }
-                //            case TypeMessage.Message:
-                //                {
-                //                    lbChat.Items.Add($"{msg.Name}:{msg.Text}");
-                //                    break;
-                //                }
-                //            default:
-                //                break;
-                //        }
-                //        lbChat.Items.MoveCurrentToLast();
-                //        lbChat.ScrollIntoView(lbChat.Items.CurrentItem);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        //MessageBox.Show($"{ex.Message}");
-                //        //return;
-                //    }
-                //});
+                });
             }
         }
 
