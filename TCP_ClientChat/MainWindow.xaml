@@ -1,0 +1,20 @@
+﻿<Window x:Class="TCP_ClientChat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TCP_ClientChat"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="493" Width="800" Closing="ClosingWindow_CLick">
+    <Grid>
+        <Label Content="Text:" HorizontalAlignment="Left" Margin="56,71,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="txtMessage" HorizontalAlignment="Left" Margin="56,108,0,0" TextWrapping="Wrap" FontSize="19" VerticalAlignment="Top" Width="426" Height="30"/>
+        <Label Content="Chat:" HorizontalAlignment="Left" Margin="56,163,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <ListBox Name="lbChat" HorizontalAlignment="Left" Margin="56,200,0,36" Width="426"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="518,318,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <TextBox Name="txtName" HorizontalAlignment="Left" Margin="518,355,0,0" TextWrapping="Wrap" FontSize="19" VerticalAlignment="Top" Width="254" Height="30"/>
+        <Button Name="btnConnect" Content="Connect" HorizontalAlignment="Left" Margin="532,390,0,0" FontWeight="DemiBold" FontSize="15" VerticalAlignment="Top" Width="104" Click="btnConnect_Click"/>
+        <Image Name="btnSend" HorizontalAlignment="Left" Height="33" Margin="487,109,0,0" VerticalAlignment="Top" Width="37" Source="/send.png" MouseDown="btnSend_MouseDown"/>
+
+    </Grid>
+</Window>
