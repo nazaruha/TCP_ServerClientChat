@@ -2,6 +2,8 @@
 using System.Net.Sockets;
 using System.Text;
 using Context;
+using Context.Entities;
+using TCPUserMessage;
 
 namespace TCPServer
 {
@@ -48,6 +50,11 @@ namespace TCPServer
                 string data = Encoding.UTF8.GetString(buffer, 0, byte_count);
                 broadcast(data);
                 Console.WriteLine(data);
+                TCPUserMessage.UserMessage TCPuser = TCPUserMessage.UserMessage.Deserialize(buffer);
+                if (TCPuser.MessageType == TypeMessage.Login || TCPuser.MessageType == TypeMessage.Logout) continue;
+                Context.Entities.UserMessage user = new Context.Entities.UserMessage() { Name = TCPuser.Name, Message = TCPuser.Text, Date = DateTime.Now};
+                context.Users.Add(user);
+                context.SaveChanges();
             }
             lock (_lock) list_clients.Remove(id);
             client.Client.Shutdown(SocketShutdown.Both);
