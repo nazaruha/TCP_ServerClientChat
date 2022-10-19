@@ -36,7 +36,7 @@ namespace TCP_ClientChat.TCPobjects
         public static TCPUserMessage Deserialize(byte[] data)
         {
             TCPUserMessage userMsg = new TCPUserMessage();
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream(data))
             {
                 using (BinaryReader br = new BinaryReader(ms))
                 {

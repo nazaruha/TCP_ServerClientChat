@@ -43,7 +43,7 @@ namespace TCP_ClientChat
             int byte_count;
             while ((byte_count = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                this.Dispatcher.Invoke(() =>
+                this.Dispatcher.BeginInvoke(() =>
                 {
                     try
                     {
@@ -102,7 +102,7 @@ namespace TCP_ClientChat
                 userMsg.MessageType = TypeMessage.Login;
                 userMsg.Text = "Join the chat";
                 byte[] buffer = userMsg.Serialize();
-                ns.Write(buffer, 0, buffer.Length);
+                ns.Write(buffer);
             }
             catch
             {
@@ -131,7 +131,6 @@ namespace TCP_ClientChat
                 thread.Join();
                 ns.Close();
                 client.Close();
-                this.Close();
             }
             catch
             {
