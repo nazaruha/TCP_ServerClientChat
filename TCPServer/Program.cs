@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Context;
 
 namespace TCPServer
 {
@@ -10,11 +11,13 @@ namespace TCPServer
         private static int port = 1002;
         private static readonly object _lock = new object();
         private static readonly Dictionary<int, TcpClient> list_clients = new Dictionary<int, TcpClient>();
+        private static MyDataContext context;
         static void Main(string[] args)
         {
             IPAddress ip = IPAddress.Parse(ipAddress);
             TcpListener server = new TcpListener(ip, port);
             server.Start();
+            context = new MyDataContext();
             Console.WriteLine("Server started");
 
             int count = 1;
