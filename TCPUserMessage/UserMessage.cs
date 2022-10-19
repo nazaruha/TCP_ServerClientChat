@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TCP_ClientChat.TCPobjects
+namespace TCPUserMessage
 {
     public enum TypeMessage
     {
         Login, Logout, Message
     }
-    public class TCPUserMessage
+    public class UserMessage
     {
         public TypeMessage MessageType;
         public string Id { get; set; }
@@ -33,9 +32,9 @@ namespace TCP_ClientChat.TCPobjects
             }
         }
 
-        public static TCPUserMessage Deserialize(byte[] data)
+        public static UserMessage Deserialize(byte[] data)
         {
-            TCPUserMessage userMsg = new TCPUserMessage();
+            UserMessage userMsg = new UserMessage();
             using (MemoryStream ms = new MemoryStream(data))
             {
                 using (BinaryReader br = new BinaryReader(ms))

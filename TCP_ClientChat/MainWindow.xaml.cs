@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TCP_ClientChat.TCPobjects;
+using TCPUserMessage;
 
 namespace TCP_ClientChat
 {
@@ -30,7 +30,7 @@ namespace TCP_ClientChat
         private TcpClient client = new TcpClient();
         private NetworkStream ns;
         private Thread thread;
-        private TCPUserMessage userMsg = new TCPUserMessage();
+        private UserMessage userMsg = new UserMessage();
         public MainWindow()
         {
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace TCP_ClientChat
                 {
                     try
                     {
-                        TCPUserMessage msg = TCPUserMessage.Deserialize(buffer);
+                        UserMessage msg = UserMessage.Deserialize(buffer);
                         switch (msg.MessageType)
                         {
                             case TypeMessage.Login:
@@ -117,6 +117,7 @@ namespace TCP_ClientChat
             userMsg.Text = txtMessage.Text;
             byte[] buffer = userMsg.Serialize();
             ns.Write(buffer, 0, buffer.Length);
+            txtMessage.Clear();
         }
         private void ClosingWindow_CLick(object sender, System.ComponentModel.CancelEventArgs e)
         {

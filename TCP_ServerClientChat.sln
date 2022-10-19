@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCPServer", "TCPServer\TCPServer.csproj", "{FBF1FC52-EB3D-480A-8BE0-E07C99A1B55F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCP_ClientChat", "TCP_ClientChat\TCP_ClientChat.csproj", "{F31F2BCF-5D2C-4CCD-93A3-3189E8700B87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TCP_ClientChat", "TCP_ClientChat\TCP_ClientChat.csproj", "{F31F2BCF-5D2C-4CCD-93A3-3189E8700B87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPUserMessage", "TCPUserMessage\TCPUserMessage.csproj", "{49372B6F-6CCA-405E-A452-50FAD3B9143D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F31F2BCF-5D2C-4CCD-93A3-3189E8700B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F31F2BCF-5D2C-4CCD-93A3-3189E8700B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F31F2BCF-5D2C-4CCD-93A3-3189E8700B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49372B6F-6CCA-405E-A452-50FAD3B9143D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49372B6F-6CCA-405E-A452-50FAD3B9143D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49372B6F-6CCA-405E-A452-50FAD3B9143D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49372B6F-6CCA-405E-A452-50FAD3B9143D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TCPUserMessage\TCPUserMessage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="send.png" />
   </ItemGroup>
 
