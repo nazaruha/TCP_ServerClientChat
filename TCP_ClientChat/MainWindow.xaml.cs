@@ -31,6 +31,7 @@ namespace TCP_ClientChat
         private NetworkStream ns;
         private Thread thread;
         private UserMessage userMsg = new UserMessage();
+        private bool isImage { get; set; } = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -89,6 +90,11 @@ namespace TCP_ClientChat
                 MessageBox.Show("Input name");
                 return;
             }
+            if (!isImage)
+            {
+                MessageBox.Show("Choose Image");
+                return;
+            }
             try
             {
                 userMsg.Name = txtName.Text;
@@ -139,6 +145,9 @@ namespace TCP_ClientChat
             }
         }
 
-        
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

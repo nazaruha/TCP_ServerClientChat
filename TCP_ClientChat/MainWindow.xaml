@@ -15,6 +15,7 @@
         <TextBox Name="txtName" HorizontalAlignment="Left" Margin="518,355,0,0" TextWrapping="Wrap" FontSize="19" VerticalAlignment="Top" Width="254" Height="30"/>
         <Button Name="btnConnect" Content="Connect" HorizontalAlignment="Left" Margin="532,390,0,0" FontWeight="DemiBold" FontSize="15" VerticalAlignment="Top" Width="104" Click="btnConnect_Click"/>
         <Image Name="btnSend" HorizontalAlignment="Left" Height="33" Margin="487,109,0,0" VerticalAlignment="Top" Width="37" Source="/send.png" MouseDown="btnSend_MouseDown"/>
+        <Image HorizontalAlignment="Left" Height="148" Margin="585,163,0,0" VerticalAlignment="Top" Width="138" Source="/Pictures-Canon-icon.png" MouseDown="Image_MouseDown"/>
 
     </Grid>
 </Window>
