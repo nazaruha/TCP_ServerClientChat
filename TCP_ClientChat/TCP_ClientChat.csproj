@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pictures-Canon-icon.png" />
     <None Remove="send.png" />
   </ItemGroup>
 
@@ -16,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Pictures-Canon-icon.png" />
     <Resource Include="send.png" />
   </ItemGroup>
 
