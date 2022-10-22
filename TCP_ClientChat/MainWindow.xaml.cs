@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TCPUserMessage;
+using System.Drawing;
 
 namespace TCP_ClientChat
 {
@@ -31,7 +33,9 @@ namespace TCP_ClientChat
         private NetworkStream ns;
         private Thread thread;
         private UserMessage userMsg = new UserMessage();
-        private bool isImage { get; set; } = false;
+        private List<string> Extensions { get; set; } = new List<string> { ".bmp", ".jpg", ".png" };
+        private bool isPhoto { get; set; } = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -90,7 +94,7 @@ namespace TCP_ClientChat
                 MessageBox.Show("Input name");
                 return;
             }
-            if (!isImage)
+            if (!isPhoto)
             {
                 MessageBox.Show("Choose Image");
                 return;
@@ -145,9 +149,34 @@ namespace TCP_ClientChat
             }
         }
 
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Photo_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image (*.bmp, *.jpg, *.png)|*.bmp; *.jpg; *.png|All (*.*)|*.*";
+            string path = "";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                if (!CheckPhotoExtension(openFileDialog.FileName))
+                    return;
+                path = openFileDialog.FileName;
+            }
+            Photo.Source = new BitmapImage(new Uri(path));
+            isPhoto = true;
+        }
 
+        private bool CheckPhotoExtension(string path)
+        {
+            string extension = System.IO.Path.GetExtension(path);
+            if (Extensions.Contains(extension))
+            {
+                return true;
+            }
+            else
+            {
+                isPhoto = false;
+                MessageBox.Show("Uncorrect extension. Choose another file", "Invalid Photo", MessageBoxButton.OK);
+                return false;
+            }
         }
     }
 }
