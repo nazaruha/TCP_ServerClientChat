@@ -39,12 +39,13 @@ namespace TCP_ClientChat
         public MainWindow()
         {
             InitializeComponent();
+            //lbChat.ItemsSource = null;
         }
 
         private void ReceiveData(TcpClient client)
-        {
+        { // розмір масива який відправив і який приходить. Якщо співпадає то все добре. Десеріалайз проблема може бути
             NetworkStream stream = client.GetStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[20000];
             int byte_count;
             while ((byte_count = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
@@ -52,24 +53,28 @@ namespace TCP_ClientChat
                 {
                     try
                     {
+                        int size = byte_count;
                         UserMessage msg = UserMessage.Deserialize(buffer);
                         switch (msg.MessageType)
                         {
                             case TypeMessage.Login:
                                 {
                                     if (msg.Id != userMsg.Id)
-                                        lbChat.Items.Add($"{msg.Name}:{msg.Text}");
+                                        lbChat.Items.Add($"{msg.Photo}:{msg.Name}:{msg.Text}");
+                                    //lbChat.ItemsSource = (System.Collections.IEnumerable)msg;
                                     break;
                                 }
                             case TypeMessage.Logout:
                                 {
                                     if (msg.Id != userMsg.Id)
-                                        lbChat.Items.Add($"{msg.Name}:{msg.Text}");
+                                        lbChat.Items.Add($"{msg.Photo}:{msg.Name}:{msg.Text}");
+                                    lbChat.ItemsSource = (System.Collections.IEnumerable)msg;
                                     break;
                                 }
                             case TypeMessage.Message:
                                 {
-                                    lbChat.Items.Add($"{msg.Name}:{msg.Text}");
+                                    lbChat.Items.Add($"{msg.Photo}:{msg.Name}:{msg.Text}");
+                                    //lbChat.ItemsSource = (System.Collections.IEnumerable)msg;
                                     break;
                                 }
                             default:
@@ -123,11 +128,19 @@ namespace TCP_ClientChat
         private void btnSend_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (String.IsNullOrWhiteSpace(txtMessage.Text)) return;
-            userMsg.MessageType = TypeMessage.Message;
-            userMsg.Text = txtMessage.Text;
-            byte[] buffer = userMsg.Serialize();
-            ns.Write(buffer, 0, buffer.Length);
-            txtMessage.Clear();
+            try
+            {
+                userMsg.MessageType = TypeMessage.Message;
+                userMsg.Text = txtMessage.Text;
+                byte[] buffer = userMsg.Serialize();
+                ns.Write(buffer, 0, buffer.Length);
+                txtMessage.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
         private void ClosingWindow_CLick(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -151,6 +164,7 @@ namespace TCP_ClientChat
 
         private void Photo_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (isPhoto) return;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image (*.bmp, *.jpg, *.png)|*.bmp; *.jpg; *.png|All (*.*)|*.*";
             string path = "";
@@ -160,8 +174,19 @@ namespace TCP_ClientChat
                     return;
                 path = openFileDialog.FileName;
             }
-            Photo.Source = new BitmapImage(new Uri(path));
-            isPhoto = true;
+            try
+            {
+                Photo.Source = new BitmapImage(new Uri(path));
+                byte[] imgArr = System.IO.File.ReadAllBytes(path);
+                string imgBase64 = Convert.ToBase64String(imgArr);
+                userMsg.Photo = imgBase64;
+                isPhoto = true;
+            }
+            catch
+            {
+                return;
+            }
+            
         }
 
         private bool CheckPhotoExtension(string path)

@@ -25,7 +25,7 @@ namespace TCPServer
             int count = 1;
             while (true)
             {
-                TcpClient client = server.AcceptTcpClient();
+               TcpClient client = server.AcceptTcpClient();
                 lock (_lock) list_clients.Add(count, client);
                 Console.WriteLine($"\nClient #{count} connected!");
                 Thread thread = new Thread(handle_client);
@@ -44,12 +44,12 @@ namespace TCPServer
             {
                 NetworkStream stream = client.GetStream();
                 Console.WriteLine("Client end-point: {0}", client.Client.RemoteEndPoint);
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[20000];
                 int byte_count = stream.Read(buffer, 0, buffer.Length);
                 if (byte_count == 0) break;
                 string data = Encoding.UTF8.GetString(buffer, 0, byte_count);
-                broadcast(data);
                 Console.WriteLine(data);
+                broadcast(data);
                 TCPUserMessage.UserMessage TCPuser = TCPUserMessage.UserMessage.Deserialize(buffer);
                 if (TCPuser.MessageType == TypeMessage.Login || TCPuser.MessageType == TypeMessage.Logout) continue;
                 Context.Entities.UserMessage user = new Context.Entities.UserMessage() { Name = TCPuser.Name, Message = TCPuser.Text, Date = DateTime.Now};
